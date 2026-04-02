@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shopilo-ro — Coduri de reducere Romania</title>
+  <meta name="description" content="Colectie de scripturi Python open-source pentru fetch automat de coduri de reducere de la magazinele online din Romania. Datele sunt preluate live de pe Shopilo.ro, cel mai mare agregator de cupoane din Romania.">
+  <meta name="robots" content="index, follow">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#0d1117;color:#e6edf3;line-height:1.5}
+    a{color:#58a6ff;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+    header{background:#161b22;border-bottom:1px solid #30363d;padding:14px 0}
+    .hdr{display:flex;justify-content:space-between;align-items:center}
+    .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:#e6edf3;text-decoration:none}
+    nav a{font-size:13px;color:#8b949e;margin-left:20px}
+    nav a:hover{color:#e6edf3;text-decoration:none}
+    .hero{padding:56px 0 40px}
+    .hero-eyebrow{font-size:12px;color:#8b949e;font-family:'SFMono-Regular',Consolas,monospace;margin-bottom:12px}
+    .hero h1{font-size:36px;font-weight:700;margin-bottom:16px;line-height:1.2}
+    .hero-desc{font-size:16px;color:#8b949e;max-width:620px;margin-bottom:24px}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid}
+    .badge-blue{background:rgba(31,111,235,.1);border-color:#1f6feb;color:#79c0ff}
+    .badge-green{background:rgba(35,134,54,.1);border-color:#238636;color:#56d364}
+    .badge-gray{background:#21262d;border-color:#30363d;color:#8b949e}
+    .code-block{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:20px 24px;font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;line-height:1.8;max-width:560px}
+    .c-comment{color:#8b949e}
+    .c-cmd{color:#e6edf3}
+    .stats{background:#161b22;border-top:1px solid #30363d;border-bottom:1px solid #30363d;padding:14px 0;font-size:13px;color:#8b949e}
+    .stats-inner{display:flex;flex-wrap:wrap;gap:24px}
+    .stat{display:flex;align-items:center;gap:6px}
+    .stat-val{color:#e6edf3;font-weight:600}
+    section{padding:40px 0 60px}
+    .sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+    .sec-title{font-size:18px;font-weight:600}
+    .sec-count{background:#21262d;border:1px solid #30363d;border-radius:20px;padding:2px 10px;font-size:12px;color:#8b949e}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+    .card{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:16px;transition:.15s}
+    .card:hover{border-color:#388bfd;box-shadow:0 0 0 3px rgba(56,139,253,.1)}
+    .card-head{margin-bottom:12px}
+    .card-name{font-size:15px;font-weight:600;color:#e6edf3;margin-bottom:2px}
+    .card-slug{font-size:11px;color:#8b949e;font-family:'SFMono-Regular',Consolas,monospace}
+    .npm-box{background:#0d1117;border:1px solid #30363d;border-radius:6px;padding:7px 11px;font-family:'SFMono-Regular',Consolas,monospace;font-size:12px;color:#e6edf3;margin-bottom:12px}
+    .npm-prompt{color:#3fb950;margin-right:6px;user-select:none}
+    .card-btns{display:flex;gap:8px}
+    .btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;transition:.15s;white-space:nowrap}
+    .btn-gh{background:#238636;color:#fff;border:1px solid rgba(240,246,252,.1)}
+    .btn-gh:hover{background:#2ea043;text-decoration:none}
+    .btn-shop{background:transparent;color:#e6edf3;border:1px solid #30363d}
+    .btn-shop:hover{background:#21262d;text-decoration:none;border-color:#8b949e}
+    footer{background:#161b22;border-top:1px solid #30363d;padding:20px 0;font-size:12px;color:#8b949e;text-align:center}
+    @media(max-width:600px){.hero h1{font-size:26px}.stats-inner{gap:14px}}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hdr">
+      <a href="/" class="logo"><svg height="24" viewBox="0 0 16 16" width="24" fill="#e6edf3"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>shopilo-ro</a>
+      <nav>
+        <a href="https://github.com/shopilo-ro" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://shopilo.ro" target="_blank" rel="noopener">shopilo.ro</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-eyebrow">github.com / shopilo-ro</div>
+    <h1>Coduri de reducere Romania</h1>
+    <p class="hero-desc">Colectie de scripturi Python open-source pentru fetch automat de coduri de reducere de la magazinele online din Romania. Datele sunt preluate live de pe Shopilo.ro, cel mai mare agregator de cupoane din Romania.</p>
+    <div class="badges">
+      <span class="badge badge-blue">Python 3.8+</span>
+      <span class="badge badge-green">MIT License</span>
+      <span class="badge badge-gray">npm disponibil</span>
+      <span class="badge badge-gray">Date live shopilo.ro</span>
+    </div>
+    <div class="code-block">
+      <span class="c-comment"># Instaleaza dependentele</span><br>
+      <span class="c-cmd">pip install requests beautifulsoup4</span><br><br>
+      <span class="c-comment"># Fetch automat coduri de reducere</span><br>
+      <span class="c-cmd">git clone https://github.com/shopilo-ro/cod-reducere-[magazin]</span><br>
+      <span class="c-cmd">python fetch.py</span>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stats-inner">
+      <span class="stat"><span class="stat-val">41</span> magazine</span>
+      <span class="stat">Python <span class="stat-val">3.8+</span></span>
+      <span class="stat">Sursa date: <span class="stat-val">shopilo.ro</span></span>
+      <span class="stat">npm i <span class="stat-val">cod-reducere-[magazin]</span></span>
+      <span class="stat">Licenta: <span class="stat-val">MIT</span></span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section>
+    <div class="sec-hdr">
+      <span class="sec-title">Magazine</span>
+      <span class="sec-count">41</span>
+    </div>
+    <div class="grid">
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Trendyol</div>
+        <div class="card-slug">cod-reducere-trendyol</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-trendyol</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-trendyol" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/trendyol.com" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Trendyol</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Dr. Max</div>
+        <div class="card-slug">cod-reducere-dr-max</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-dr-max</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-dr-max" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/drmax.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Dr. Max</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Notino</div>
+        <div class="card-slug">cod-reducere-notino</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-notino</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-notino" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/notino.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Notino</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">eMAG</div>
+        <div class="card-slug">cod-reducere-emag</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-emag</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-emag" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/emag.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere eMAG</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Fashion Days</div>
+        <div class="card-slug">cod-reducere-fashion-days</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-fashion-days</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-fashion-days" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/fashiondays.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Fashion Days</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Altex</div>
+        <div class="card-slug">cod-reducere-altex</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-altex</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-altex" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/altex.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Altex</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Answear</div>
+        <div class="card-slug">cod-reducere-answear</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-answear</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-answear" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/answear.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Answear</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Douglas</div>
+        <div class="card-slug">cod-reducere-douglas</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-douglas</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-douglas" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/douglas.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Douglas</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Carturesti</div>
+        <div class="card-slug">cod-reducere-carturesti</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-carturesti</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-carturesti" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/carturesti.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Carturesti</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Elefant</div>
+        <div class="card-slug">cod-reducere-elefant</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-elefant</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-elefant" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/elefant.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Elefant</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">carVertical</div>
+        <div class="card-slug">cod-reducere-carvertical</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-carvertical</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-carvertical" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/carvertical.com" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere carVertical</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Decathlon</div>
+        <div class="card-slug">cod-reducere-decathlon</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-decathlon</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-decathlon" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/decathlon.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Decathlon</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Sinsay</div>
+        <div class="card-slug">cod-reducere-sinsay</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-sinsay</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-sinsay" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/sinsay.com" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Sinsay</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Vexio</div>
+        <div class="card-slug">cod-reducere-vexio</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-vexio</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-vexio" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/vexio.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Vexio</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Zooplus</div>
+        <div class="card-slug">cod-reducere-zooplus</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-zooplus</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-zooplus" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/zooplus.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Zooplus</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Bookzone</div>
+        <div class="card-slug">cod-reducere-bookzone</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-bookzone</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-bookzone" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/bookzone.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Bookzone</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Spring Farma</div>
+        <div class="card-slug">cod-reducere-spring-farma</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-spring-farma</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-spring-farma" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/springfarma.com" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Spring Farma</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Mobilfox</div>
+        <div class="card-slug">cod-reducere-mobilfox</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-mobilfox</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-mobilfox" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/mobilfox.com" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Mobilfox</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">BestValue</div>
+        <div class="card-slug">cod-reducere-bestvalue</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-bestvalue</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-bestvalue" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/bestvalue.eu" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere BestValue</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Wolt</div>
+        <div class="card-slug">cod-reducere-wolt</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-wolt</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-wolt" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/wolt.com" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Wolt</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">evoMAG</div>
+        <div class="card-slug">cod-reducere-evomag</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-evomag</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-evomag" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/evomag.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere evoMAG</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Flanco</div>
+        <div class="card-slug">cod-reducere-flanco</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-flanco</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-flanco" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/flanco.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Flanco</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Litera</div>
+        <div class="card-slug">cod-reducere-litera</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-litera</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-litera" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/litera.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Litera</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Kfea</div>
+        <div class="card-slug">cod-reducere-kfea</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-kfea</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-kfea" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/kfea.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Kfea</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">vidaXL</div>
+        <div class="card-slug">cod-reducere-vidaxl</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-vidaxl</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-vidaxl" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/vidaxl.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere vidaXL</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">XXXLutz</div>
+        <div class="card-slug">cod-reducere-xxxlutz</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-xxxlutz</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-xxxlutz" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/xxxlutz.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere XXXLutz</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">F64</div>
+        <div class="card-slug">cod-reducere-f64</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-f64</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-f64" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/f64.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere F64</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Lensa</div>
+        <div class="card-slug">cod-reducere-lensa</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-lensa</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-lensa" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/lensa.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Lensa</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Noriel</div>
+        <div class="card-slug">cod-reducere-noriel</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-noriel</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-noriel" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/noriel.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Noriel</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Nailsup</div>
+        <div class="card-slug">cod-reducere-nailsup</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-nailsup</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-nailsup" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/nailsup.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Nailsup</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Eden Boutique</div>
+        <div class="card-slug">cod-reducere-eden-boutique</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-eden-boutique</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-eden-boutique" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/edenboutique.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Eden Boutique</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Philips</div>
+        <div class="card-slug">cod-reducere-philips</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-philips</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-philips" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/philips.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Philips</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Videt</div>
+        <div class="card-slug">cod-reducere-videt</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-videt</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-videt" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/videt.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Videt</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Libris</div>
+        <div class="card-slug">cod-reducere-libris</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-libris</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-libris" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/libris.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Libris</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Benvenuti</div>
+        <div class="card-slug">cod-reducere-benvenuti</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-benvenuti</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-benvenuti" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/benvenuti.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Benvenuti</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Zappatos</div>
+        <div class="card-slug">cod-reducere-zappatos</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-zappatos</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-zappatos" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/zappatos.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Zappatos</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Otter</div>
+        <div class="card-slug">cod-reducere-otter</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-otter</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-otter" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/otter.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Otter</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Dormeo</div>
+        <div class="card-slug">cod-reducere-dormeo</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-dormeo</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-dormeo" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/dormeo.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Dormeo</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Huawei</div>
+        <div class="card-slug">cod-reducere-huawei</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-huawei</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-huawei" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/consumer.huawei.com" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Huawei</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">Flip</div>
+        <div class="card-slug">cod-reducere-flip</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-flip</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-flip" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/flip.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere Flip</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <div class="card-name">dEpurtat</div>
+        <div class="card-slug">cod-reducere-depurtat</div>
+      </div>
+      <div class="npm-box"><span class="npm-prompt">$</span>npm i cod-reducere-depurtat</div>
+      <div class="card-btns">
+        <a href="https://github.com/shopilo-ro/cod-reducere-depurtat" class="btn btn-gh" target="_blank" rel="noopener">
+          <svg height="13" width="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub
+        </a>
+        <a href="https://shopilo.ro/magazin/depurtat.ro" class="btn btn-shop" target="_blank" rel="noopener">Cod reducere dEpurtat</a>
+      </div>
+    </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  Script open-source &mdash; Date de pe <a href="https://shopilo.ro">shopilo.ro</a> &mdash;
+  <a href="https://github.com/shopilo-ro">GitHub</a>
+</footer>
+
+</body>
+</html>
